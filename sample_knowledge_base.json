@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ai_definition",
+    "text": "Artificial Intelligence (AI) is a branch of computer science that aims to create intelligent machines that can think, learn, and adapt like humans. AI systems can perform tasks that typically require human intelligence, such as visual perception, speech recognition, decision-making, and language translation.",
+    "metadata": {
+      "category": "AI Basics",
+      "source": "knowledge_base",
+      "tags": ["artificial intelligence", "AI", "machine intelligence"]
+    }
+  },
+  {
+    "id": "machine_learning",
+    "text": "Machine Learning is a subset of artificial intelligence that enables computers to learn and improve from experience without being explicitly programmed. It uses algorithms and statistical models to identify patterns in data and make predictions or decisions.",
+    "metadata": {
+      "category": "AI Basics",
+      "source": "knowledge_base",
+      "tags": ["machine learning", "ML", "algorithms", "data science"]
+    }
+  },
+  {
+    "id": "deep_learning",
+    "text": "Deep Learning is a subset of machine learning that uses artificial neural networks with multiple layers (deep neural networks) to model and understand complex patterns in data. It's particularly effective for tasks like image recognition, natural language processing, and speech recognition.",
+    "metadata": {
+      "category": "AI Basics",
+      "source": "knowledge_base",
+      "tags": ["deep learning", "neural networks", "DL"]
+    }
+  },
+  {
+    "id": "natural_language_processing",
+    "text": "Natural Language Processing (NLP) is a branch of artificial intelligence that helps computers understand, interpret, and manipulate human language. NLP combines computational linguistics with statistical, machine learning, and deep learning models to enable computers to process human language in text and speech forms.",
+    "metadata": {
+      "category": "AI Applications",
+      "source": "knowledge_base",
+      "tags": ["NLP", "natural language processing", "linguistics", "text processing"]
+    }
+  },
+  {
+    "id": "computer_vision",
+    "text": "Computer Vision is a field of artificial intelligence that trains computers to interpret and understand visual information from the world. It involves acquiring, processing, analyzing, and understanding digital images and videos to extract meaningful information.",
+    "metadata": {
+      "category": "AI Applications",
+      "source": "knowledge_base",
+      "tags": ["computer vision", "image processing", "visual recognition"]
+    }
+  }
+]

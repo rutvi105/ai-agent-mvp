@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent MVP - Chat Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> AI Agent MVP</h1>
+                <p>Intelligent Assistant with Knowledge Base & Web Search</p>
+                <div class="status-indicators">
+                    <span class="status-indicator" id="chat-status">
+                        <i class="fas fa-circle"></i> Chat Service
+                    </span>
+                    <span class="status-indicator" id="kb-status">
+                        <i class="fas fa-circle"></i> Knowledge Base
+                    </span>
+                    <span class="status-indicator" id="search-status">
+                        <i class="fas fa-circle"></i> Search
+                    </span>
+                    <span class="status-indicator" id="history-status">
+                        <i class="fas fa-circle"></i> History
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <main class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Welcome to AI Agent MVP! I can help you with questions using my knowledge base or by searching the web. Try asking me about artificial intelligence, machine learning, or any other topic you're curious about.
+                            </div>
+                            <div class="message-meta">
+                                <span class="message-time">Just now</span>
+                                <span class="message-source">System</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Ask me anything about AI, technology, or any topic..." 
+                        maxlength="500"
+                    >
+                    <button id="sendButton" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-info">
+                    <span class="char-count">0/500</span>
+                    <span class="typing-indicator" id="typingIndicator" style="display: none;">
+                        <i class="fas fa-circle-notch fa-spin"></i> AI is thinking...
+                    </span>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-history"></i> Recent Chats</h3>
+                <div class="recent-chats" id="recentChats">
+                    <p class="no-chats">No recent conversations</p>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-info-circle"></i> System Info</h3>
+                <div class="system-info">
+                    <div class="info-item">
+                        <span class="info-label">Session ID:</span>
+                        <span class="info-value" id="sessionId">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Messages:</span>
+                        <span class="info-value" id="messageCount">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Source:</span>
+                        <span class="info-value" id="lastSource">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-cog"></i> Actions</h3>
+                <div class="actions">
+                    <button class="action-button" id="clearChat">
+                        <i class="fas fa-trash"></i> Clear Chat
+                    </button>
+                    <button class="action-button" id="exportChat">
+                        <i class="fas fa-download"></i> Export Chat
+                    </button>
+                    <button class="action-button" id="checkServices">
+                        <i class="fas fa-heartbeat"></i> Check Services
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Sample Questions Modal -->
+    <div class="modal" id="samplesModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-lightbulb"></i> Sample Questions</h3>
+                <button class="modal-close" id="closeSamples">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sample-questions">
+                    <div class="question-category">
+                        <h4>AI & Technology</h4>
+                        <button class="sample-question" data-question="What is artificial intelligence?">
+                            What is artificial intelligence?
+                        </button>
+                        <button class="sample-question" data-question="How does machine learning work?">
+                            How does machine learning work?
+                        </button>
+                        <button class="sample-question" data-question="Explain neural networks">
+                            Explain neural networks
+                        </button>
+                    </div>
+                    <div class="question-category">
+                        <h4>Programming</h4>
+                        <button class="sample-question" data-question="Best programming languages for AI">
+                            Best programming languages for AI
+                        </button>
+                        <button class="sample-question" data-question="How to get started with Python?">
+                            How to get started with Python?
+                        </button>
+                    </div>
+                    <div class="question-category">
+                        <h4>General</h4>
+                        <button class="sample-question" data-question="Latest trends in technology">
+                            Latest trends in technology
+                        </button>
+                        <button class="sample-question" data-question="What is cloud computing?">
+                            What is cloud computing?
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="floating-help" id="helpButton">
+        <i class="fas fa-question-circle"></i>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: ai_agent_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ai_agent_mvp
+    networks:
+      - ai_agent_network
+
+  # Chat Service (Orchestrator)
+  chat_service:
+    build: ./chat_service
+    container_name: ai_agent_chat
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/ai_agent_mvp
+      - KB_SERVICE_URL=http://knowledge_base_service:8001
+      - SEARCH_SERVICE_URL=http://search_service:8002
+      - HISTORY_SERVICE_URL=http://history_service:8003
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      - mongodb
+      - knowledge_base_service
+      - search_service
+      - history_service
+    networks:
+      - ai_agent_network
+    volumes:
+      - ./chat_service:/app
+      - chroma_data:/app/chroma_db
+
+  # Knowledge Base Service
+  knowledge_base_service:
+    build: ./knowledge_base_service
+    container_name: ai_agent_kb
+    ports:
+      - "8001:8001"
+    environment:
+      - CHROMA_DB_PATH=/app/chroma_db
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      - mongodb
+    networks:
+      - ai_agent_network
+    volumes:
+      - ./knowledge_base_service:/app
+      - chroma_data:/app/chroma_db
+
+  # Search Service
+  search_service:
+    build: ./search_service
+    container_name: ai_agent_search
+    ports:
+      - "8002:8002"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    networks:
+      - ai_agent_network
+    volumes:
+      - ./search_service:/app
+
+  # History Service
+  history_service:
+    build: ./history_service
+    container_name: ai_agent_history
+    ports:
+      - "8003:8003"
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/ai_agent_mvp
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    depends_on:
+      - mongodb
+    networks:
+      - ai_agent_network
+    volumes:
+      - ./history_service:/app
+
+  # Frontend (Nginx)
+  frontend:
+    build: ./frontend
+    container_name: ai_agent_frontend
+    ports:
+      - "3000:80"
+    environment:
+      - CHAT_SERVICE_URL=http://localhost:8000
+    depends_on:
+      - chat_service
+    networks:
+      - ai_agent_network
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+
+# Define shared network
+networks:
+  ai_agent_network:
+    driver: bridge
+
+# Define volumes for persistent storage
+volumes:
+  mongodb_data:
+    driver: local
+  chroma_data:
+    driver: local
